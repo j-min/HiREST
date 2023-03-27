@@ -1,0 +1,7 @@
+__pycache__/
+checkpoints/
+pretrained_weights/
+data/eva_clip_features/
+data/ASR/
+data/ASR_feats_all-MiniLM-L6-v2/
+custom_video_pipeline/

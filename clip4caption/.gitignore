@@ -1,0 +1,5 @@
+ckpts/
+dataset/MSRVTT/raw/
+dataset/MSVD/raw/
+*.ipynb_checkpoints*
+*/__pycache__/*
