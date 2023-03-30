@@ -266,23 +266,30 @@ You can 1) download the pre-extracted visual (EVA-CLIP), and ASR (Whisper) and A
 ### 1) Download pre-extracted features
 Download feature files extract them into the `./data/` directory.
 
+For video retrieval task
+```bash
+# Visual features (EVA-CLIP) - 32 frames per video, including features from negative distractors
+wget https://huggingface.co/j-min/HiREST-baseline/resolve/main/eva_clip_features_32_frame.zip
+unzip -q eva_clip_features_32_frame.zip
+mv eva_clip_features_32_frame/ data/
+```
+
+For moment retrieval / moment segmentation / step captioning tasks
 ```bash
 # Speech transcripts (ASR with Whisper)
 wget https://huggingface.co/j-min/HiREST-baseline/resolve/main/ASR.zip
 # Speech embedding (MiniLM)
 wget https://huggingface.co/j-min/HiREST-baseline/resolve/main/ASR_feats_all-MiniLM-L6-v2.zip
-# Visual features (EVA-CLIP)
+# Visual features (EVA-CLIP) - 1 frame per second
 wget https://huggingface.co/j-min/HiREST-baseline/resolve/main/eva_clip_features.zip
 
-unzip ASR.zip
-unzip ASR_feats_all-MiniLM-L6-v2.zip
-unzip eva_clip_features.zip
+unzip -q ASR.zip
+unzip -q ASR_feats_all-MiniLM-L6-v2.zip
+unzip -q eva_clip_features.zip
 
 mv ASR/ data/
 mv ASR_feats_all-MiniLM-L6-v2/ data/
 mv eva_clip_features/ data/
-
-# rm ASR.zip ASR_feats_all-MiniLM-L6-v2.zip eva_clip_features.zip
 ```
 
 Afterwards the `./data/` directory should look like: 
@@ -291,6 +298,7 @@ data/
     ASR/
     ASR_feats_all-MiniLM-L6-v2/
     eva_clip_features/
+    eva_clip_features_32_frame/
     evaluation/
     splits/
 ```
@@ -337,17 +345,36 @@ wget https://huggingface.co/j-min/HiREST-baseline/resolve/main/HiREST_BEST.pth
 mv HiREST_BEST.pth ./checkpoints/hirest_joint_model/BEST.pth
 ```
 
-## Evaluation
+## Inference & Evaluation
 
-### Run inference only
+### Video Retrieval
+
 ```bash
-bash scripts/run.sh
+# Inference
+python inference_video_retrieval.py \
+    --data_dir './data/splits' \
+    --video_feature_dir './data/eva_clip_features_32_frame' \
+    --optim adamw \
+    --n_model_frames 20 \
+    --num_workers 4 \
+    --eval_batch_size 10 \
+    --device 'cuda' \
+    --video_retrieval_model 'clip_g' \
+    --run_name clip_g_VR_20frames_avgpool
+
+# Evaluation
+python evaluate.py \
+    --task video_retrieval \
+    --pred_data VR_results/clip_g_VR_20frames_avgpool.json
 ```
 
-### Calculate scores
-Change `test_path` variable at the top of `scripts/score.sh` to change checkpoint path you want to test (you must run inference first).
+### Moment Retrieval / Moment Segmentation / Step Captioning
 
 ```bash
+# Inference
+bash scripts/run.sh
+
+# Evaluation
 bash scripts/score.sh
 ```
 
