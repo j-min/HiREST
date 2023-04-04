@@ -308,7 +308,7 @@ Check out [extraction/README.md](extraction/README.md) for details.
 
 <hr>
 
-## Training
+## Training on Single GPU
 
 Before training, you need to download the weights of CLIP4Caption (to initialize multimodal encoder/decoder parameters) and EVA-CLIP-G (visual encoder and text query encoder).
 As the [CLIP4Caption](https://github.com/liupeng0606/clip4caption) and [EVA CLIP](https://github.com/baaivision/EVA/tree/master/EVA-CLIP) repositories have been updated since our model development and also could be updated later, we uploaded the versions we used at (`clip4caption/` and `EVA_clip/`).
@@ -333,6 +333,7 @@ mv eva_clip_psz14.pt ./pretrained_weights/eva_clip_psz14.pt
 
 ### Run Training
 Change `output` variable at the top of `scripts/run.sh` to change model checkpoint path.
+We used a 1080 TI GPU (11GB memory) with batch size 5.
 
 To run training (and automatically run inference) run:
 ```bash
@@ -401,7 +402,7 @@ Please cite our paper if you use our dataset and/or method in your projects.
 
 ```bibtex
 @inproceedings{Zala2023HiREST,
-  author    = {Abhay Zala and Jaemin Cho and Satwik Kottur and Xilun Chen and Barlas Oguz and Yashar Mehdad and Mohit Bansal},
+  author    = {Abhay Zala and Jaemin Cho and Satwik Kottur and Xilun Chen and Barlas Oğuz and Yashar Mehdad and Mohit Bansal},
   title     = {Hierarchical Video-Moment Retrieval and Step-Captioning},
   booktitle = {CVPR},
   year      = {2023},
