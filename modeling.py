@@ -386,8 +386,8 @@ class MomentModel(nn.Module):
         for b in range(B):
             step_predictions[b].append([moment_start_boundaries[b], moment_start_boundaries[b]])
 
-        PERCENT_THRESHOLD = 0.50
-        n_max_iteration = 20
+        PERCENT_THRESHOLD = self.args.moment_segmentation_difference_threshold
+        n_max_iteration = self.args.moment_segmentation_max_iterations
 
         for i in range(n_max_iteration):
             moment_segmentation_logits = self.forward_moment_segmentation(video_feats, text_feat, video_mask, moment_mask, asr_feats=asr_feats, boundary_mask=prev_boundary_mask)

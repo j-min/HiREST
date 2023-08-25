@@ -53,6 +53,10 @@ def get_parser():
     parser.add_argument('--visual_num_hidden_layers', type=int, default=2)
     parser.add_argument('--decoder_num_hidden_layers', type=int, default=2)
 
+    # moment retrieval 
+    parser.add_argument('--moment_segmentation_difference_threshold', type=float, default=0.50)
+    parser.add_argument('--moment_segmentation_max_iterations', type=int, default=20)
+
     # step captioning
     parser.add_argument('--num_beams', type=int, default=5)
 
