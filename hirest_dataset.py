@@ -184,8 +184,9 @@ class MomentDataset(Dataset):
                     data.append(task_datum)
 
                 elif task == 'moment_segmentation':
-                    if len(video_ann['steps']) == 0:
-                        continue
+                    if not args.end_to_end:
+                        if len(video_ann['steps']) == 0:
+                            continue
 
                     if 'train' in str(data_path):
 
@@ -267,8 +268,9 @@ class MomentDataset(Dataset):
                         data.append(task_datum)
 
                 elif task == 'step_captioning':
-                    if len(video_ann['steps']) == 0:
-                        continue
+                    if not args.end_to_end:
+                        if len(video_ann['steps']) == 0:
+                            continue
 
                     target_text = []
                     original_bounds = []

@@ -383,6 +383,8 @@ class Trainer(TrainerBase):
         if args.end_to_end:
             import shutil
 
+            shutil.copyfile(f"{args.data_dir}/all_data_test.json", f"{args.data_dir}/all_data_test_original.json")
+
             if 'moment_retrieval' in self.tasks:
                 moments = self.evaluate(self.test_moment_retrieval_loader, has_target=False)
 
@@ -413,7 +415,6 @@ class Trainer(TrainerBase):
                                     {"index": i, "heading": "", "absolute_bounds": [i, i+1]}
                                 )
                 
-                shutil.copyfile(f"{args.data_dir}/all_data_test.json", f"{args.data_dir}/all_data_test_original.json")
                 with open(f"{args.data_dir}/all_data_test.json", 'w') as f:
                     json.dump(test, f, indent=2)
 
@@ -461,6 +462,7 @@ class Trainer(TrainerBase):
                         batch_size=args.eval_batch_size,
                         task='step_captioning',
                     )
+            
             if 'step_captioning' in self.tasks:
                 moments = self.evaluate(self.test_step_captioning_loader, has_target=False)
 
@@ -484,7 +486,8 @@ class Trainer(TrainerBase):
 
                 
                 shutil.move(f"{args.data_dir}/all_data_test.json", f"{args.data_dir}/temp3.json")
-                shutil.move(f"{args.data_dir}/all_data_test_original.json", f"{args.data_dir}/all_data_test.json")
+                
+            shutil.move(f"{args.data_dir}/all_data_test_original.json", f"{args.data_dir}/all_data_test.json")
 
         else:
             if 'moment_retrieval' in self.tasks:
