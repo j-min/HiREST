@@ -18,6 +18,7 @@ pycocoevalcap
 timm
 bert-score
 boto3
+pytube
 git+https://github.com/openai/whisper.git@eff383b27b783e280c089475852ba83f20f64998
 git+https://github.com/bckim92/language-evaluation.git
 git+https://github.com/openai/CLIP.git
