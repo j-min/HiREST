@@ -1,6 +1,8 @@
 torch
 torchvision
 opencv-python
+tokenizers==0.13.2
+transformers==4.27.3
 sentence-transformers
 accelerate
 ujson
