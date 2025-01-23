@@ -6,7 +6,7 @@ from __future__ import print_function
 import os
 from torch.utils.data import Dataset
 import numpy as np
-import pickle5 as pickle
+import pickle
 import pandas as pd
 from collections import defaultdict
 import json
