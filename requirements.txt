@@ -15,7 +15,6 @@ srt
 IPython
 kornia
 gdown
-pickle5
 pycocoevalcap
 timm
 bert-score
